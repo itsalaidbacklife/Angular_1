@@ -1,0 +1,12 @@
+<html>
+<body>
+	<script type='text/javascript' src='angular.min.js'></script>
+	<script type='text/javascript' src='app.js'></script>
+
+	<div id='deck' ng-controller='gameWrapController as gameWrap'>
+		DECK:
+		<img ng-repeat='card in gameWrap.game.deck' ng-src='{{card.src}}'></img>
+		
+	</div>
+</body>
+</html>
