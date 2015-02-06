@@ -13,11 +13,10 @@
 	var Player = function(pNum) {
 		this.hand = [];
 		this.field = [];
-		this.pNum= pNum;
+		this.pNum = pNum;
 	};
-	var Game = function(){
-		console.log("Making Game!");
-		this.deck =  [];
+	var Game = function() {
+		this.deck = [];
 		this.p0 = new Player(0);
 		this.p1 = new Player(1);
 		var path = '';
@@ -25,54 +24,47 @@
 	};
 
 	var game = new Game();
-	var card = new Card();
 
 
-	console.log("Game made");
-
-
-	//This line executes
-	console.log("After first loop");
-
-
-    for (suit = 0; suit <= 3; suit++) {
-    	console.log(suit);
-			for (rank = 1; rank <= 13; rank++) {
-				card.suit = suit;
-				card.rank = rank;
-				path = 'Images/card_' + suit + '_'+ rank;
-				card.img = path;
-				switch(suit) {
-					case 0:
-						card.alt = rank + ' of clubs';
-						break;
-					case 1:
-						card.alt = rank + ' of diamonds';
-						break;
-					case 2:
-						card.alt = rank + ' of hearts';
-						break;
-					case 3:
-						card.alt = rank + ' of spades';
-						break;
-				}
-				console.log("loggging card: ");
-				console.log(card);
-				console.log(game);
-				console.log(game.deck);
-				//assign new card to deck
-				game.deck[game.deck.length] = card;
-
-				//game.deck.append(card);
-
+	for (suit = 0; suit <= 3; suit++) {
+		for (rank = 1; rank <= 13; rank++) {
+			var card = new Card();
+			card.suit = suit;
+			card.rank = rank;
+			path = "Images/cards/card_" + suit + "_" + rank + ".png";
+			card.img = path;
+			switch (suit) {
+				case 0:
+					card.alt = rank + ' of clubs';
+					break;
+				case 1:
+					card.alt = rank + ' of diamonds';
+					break;
+				case 2:
+					card.alt = rank + ' of hearts';
+					break;
+				case 3:
+					card.alt = rank + ' of spades';
+					break;
 			}
-    	}
-	//Log newly populated game
-	console.log(game);
-	console.log(card);
+			//assign new card to deck
+			game.deck.splice(game.deck.length, [], card);
 
-	console.log("After loops");
-	app.controller('gameWrap', function(){
+
+		}
+	}
+
+	app.controller('gameWrapController', function() {
 		this.game = game;
+		this.source_test = "http://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Omega-exp-omega-labeled.svg/832px-Omega-exp-omega-labeled.svg.png";
+
+		this.drawP0 = function() {
+			console.log("Drawing P0");
+			this.game.p0.hand[this.game.p0.hand.length] = this.game.deck.shift();
+		}
+
+		this.drawP1 = function() {
+			this.game.p1.hand[this.game.p1.hand.length] = this.game.deck.shift();
+		}
 	});
 })();
